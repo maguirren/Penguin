@@ -1,0 +1,43 @@
+from pathlib import Path
+from importlib import resources
+import shutil
+
+
+def create_site(site_name: str):
+    """
+    Crea la carpeta del sitio en el directorio del usuario.
+
+    Args:
+        site_name (str): Nombre del directorio del sitio
+
+    Estructura creada:
+        - .templates
+        - drafts
+        - posts
+        - blog
+        - blog/posts
+        - blog/statics
+
+    Copia plantillas desde el paquete a .templates
+    """
+    home = Path.home()
+    site_dir = home / site_name
+    site_dir.mkdir(exist_ok=True)
+
+    
+    # Crea las carpetas
+    for d in ['.templates', 'drafts', 'posts', 'blog', 'blog/statics', 'blog/posts']:
+        (site_dir / d).mkdir(parents=True, exist_ok=True)
+
+
+    # Accede a los templates
+    template_dir = resources.files("app_penguin.templates")
+
+    # Itera sobre los archivos que vas a copiar
+    for file_name in ['index.html', 'about.html', 'list_post.html', 'single_post.html']:
+        src_file = template_dir / file_name
+
+        with resources.as_file(src_file) as src_path:
+            dst_file = site_dir / ".templates" / file_name
+            shutil.copy(src_path, dst_file)
+    
