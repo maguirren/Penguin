@@ -1,6 +1,7 @@
 from pathlib import Path
 from importlib import resources
 import shutil
+from .get_config import *
 
 
 def create_site(site_name: str):
@@ -20,10 +21,9 @@ def create_site(site_name: str):
 
     Copia plantillas desde el paquete a .templates
     """
-    home = Path.home()
-    site_dir = home / site_name
-    site_dir.mkdir(exist_ok=True)
-
+    site_dir = Path.home() / site_name
+    site_dir.mkdir(parents=True, exist_ok=True)
+    register_site(site_name, site_dir)
     
     # Crea las carpetas
     for d in ['.templates', 'drafts', 'posts', 'blog', 'blog/statics', 'blog/posts']:
@@ -40,4 +40,5 @@ def create_site(site_name: str):
         with resources.as_file(src_file) as src_path:
             dst_file = site_dir / ".templates" / file_name
             shutil.copy(src_path, dst_file)
+            print(f"Archivo copiado en {dst_file}")
     
