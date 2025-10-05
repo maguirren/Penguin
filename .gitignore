@@ -1,0 +1,35 @@
+# Penguin SSG .gitignore
+
+
+# Python
+__pycache__/
+*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+
+# Entornos virtuales
+.venv/
+venv/
+.env/
+
+
+# Archivos temporales
+*.log
+*.tmp
+
+
+# Paquetes
+*.egg-info/
+build/
+dist/
+
+# test/IDE
+.mypy_cache/
+.pytest_cache/
+
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
