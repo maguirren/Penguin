@@ -5,7 +5,7 @@ import markdown
 import shutil
 from .get_config import *
 
-# path del sitio
+# path del sitio default
 DEFAULT_SITE = get_site_path()
 # path de los borradores
 DRAFTS_PATH = DEFAULT_SITE / "drafts"
@@ -21,6 +21,18 @@ POSTS_HTML_PATH = DEFAULT_SITE / "blog" / "posts"
 STATICS_PATH = DEFAULT_SITE / "blog" / "statics"
 
 
+"""
+Nota para un cambio
+la funcion build() deberia revisar los archivos en drafts/ y mover a posts los que no tengan el draft: true, y luego convertir a html desde la carpeta posts
+
+la carpeta blog deberia llamarse public
+
+Crear un comando que liste los borradores (drafts: True)
+
+Mejorar la conversion de markdown a html
+"""
+
+
 env = Environment(loader=FileSystemLoader(TEMPLATE_PATH))
 
 # Retorna lista con las rutas de los borradores
@@ -34,8 +46,12 @@ def get_md_file():
 
 # Elimina todos los archivos existentes en el blog
 def remove_existing_file():
+    EXCLUDE_DIRS = {".git"}
     if BLOG_PATH.exists() and BLOG_PATH.is_dir():
         for file in BLOG_PATH.rglob("*"):
+            # Saltar lo que esta dentro de .git/
+            if any(excluded in file.parts for excluded in EXCLUDE_DIRS):
+                continue
             if file.is_file():
                 file.unlink()
 

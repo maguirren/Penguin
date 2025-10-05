@@ -1,2 +1,0 @@
-[console_scripts]
-penguin = app_penguin.penguin:main
