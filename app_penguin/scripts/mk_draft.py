@@ -5,6 +5,17 @@ from datetime import datetime
 
 
 def create_draft(filename: str):
+    """
+    Crea un archivo markodown en el directirio del sitio/drafts
+
+    Args:
+        filename (str): Nombre del post
+
+    Agrega un front-matter en formato yaml:
+        - title: Titulo del post
+        - date: Fecha de creacion con formato Y-m-d
+        - draft: Confirmacion si es borrado o post
+    """
     # Define el blog por defaul y crea la carpeta drafts si no existe
     path_site = get_site_path()
     draft_path = path_site / "drafts"

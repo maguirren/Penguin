@@ -21,6 +21,8 @@ POSTS_HTML_PATH = DEFAULT_SITE / "blog" / "posts"
 STATICS_PATH = DEFAULT_SITE / "blog" / "statics"
 
 
+env = Environment(loader=FileSystemLoader(TEMPLATE_PATH))
+
 # Retorna lista con las rutas de los borradores
 def get_md_file():
     files = []
@@ -55,16 +57,10 @@ def get_data(filepath):
     return all_data
 
 
-def build():
-    files = get_md_file()
-    all_data = get_data(files)
-    
-    remove_existing_file()
-
-    env = Environment(loader=FileSystemLoader(TEMPLATE_PATH))
-
+# Convierte cada borrador .md en un archivo .html
+def create_posts(data: list):
     post_template = env.get_template('single-post.html')
-    for item in all_data:
+    for item in data:
         if item['draft'] == False:
             item['content'] = markdown.markdown(item['content'])
             rendered_html = post_template.render(item)
@@ -74,13 +70,25 @@ def build():
             pass
 
 
+# Crea el index.html
+# crea una lista de los posts
+def create_index(data: list):
     index_template = env.get_template('index.html')
     index_filename = BLOG_PATH / 'index.html'
-    #rendered_index = index_template.render()
-    rendered_index = index_template.render(posts=[p for p in all_data if not p['draft']])
-    index_filename.write_text(rendered_index)
+    rendered_html = index_template.render(posts=[p for p in data if not p['draft']])
+    index_filename.write_text(rendered_html)
 
+def build():
+    files = get_md_file()
+    all_data = get_data(files)
+    
+    remove_existing_file()
+
+    create_posts(all_data)
+
+    create_index(all_data)
+
+    # copia el about.html de los templates
     about = TEMPLATE_PATH / 'about-me.html'
     shutil.copy(about, BLOG_PATH)
-
 
