@@ -15,9 +15,9 @@ def create_site(site_name: str):
         - .templates
         - drafts
         - posts
-        - blog
-        - blog/posts
-        - blog/statics
+        - public
+        - public/posts
+        - public/statics
 
     Copia plantillas desde el paquete a .templates
     """
@@ -26,7 +26,7 @@ def create_site(site_name: str):
     register_site(site_name, site_dir)
     
     # Crea las carpetas
-    for d in ['.templates', 'drafts', 'posts', 'blog', 'blog/statics', 'blog/posts']:
+    for d in ['.templates', 'drafts', 'posts', 'public', 'public/statics', 'public/posts']:
         (site_dir / d).mkdir(parents=True, exist_ok=True)
 
 

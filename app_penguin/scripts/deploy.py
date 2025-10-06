@@ -4,7 +4,7 @@ from .get_config import get_site_path
 
 
 DEFAULT_SITE = get_site_path()
-BLOG_PATH = DEFAULT_SITE / 'blog'
+BLOG_PATH = DEFAULT_SITE / 'public'
 GIT_DIR = BLOG_PATH / '.git'
 
 def deploy_to_github():

@@ -14,11 +14,11 @@ POSTS_MD_PATH = DEFAULT_SITE / "posts"
 # ruta de las plantillas
 TEMPLATE_PATH = DEFAULT_SITE / ".templates"
 # ruta del blog
-BLOG_PATH = DEFAULT_SITE / "blog"
+BLOG_PATH = DEFAULT_SITE / "public"
 # path de los posts a servir
-POSTS_HTML_PATH = DEFAULT_SITE / "blog" / "posts"
+POSTS_HTML_PATH = DEFAULT_SITE / "public" / "posts"
 # ruta de imagenes o assets
-STATICS_PATH = DEFAULT_SITE / "blog" / "statics"
+STATICS_PATH = DEFAULT_SITE / "public" / "statics"
 
 
 """
