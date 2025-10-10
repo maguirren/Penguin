@@ -75,7 +75,7 @@ def get_data(filepath):
 
 # Convierte cada borrador .md en un archivo .html
 def create_posts(data: list):
-    post_template = env.get_template('single-post.html')
+    post_template = env.get_template('single.html')
     for item in data:
         if item['draft'] == False:
             item['content'] = markdown.markdown(item['content'])
@@ -89,7 +89,7 @@ def create_posts(data: list):
 # Crea el index.html
 # crea una lista de los posts
 def create_index(data: list):
-    index_template = env.get_template('index.html')
+    index_template = env.get_template('home.html')
     index_filename = BLOG_PATH / 'index.html'
     rendered_html = index_template.render(posts=[p for p in data if not p['draft']])
     index_filename.write_text(rendered_html)
@@ -105,6 +105,6 @@ def build():
     create_index(all_data)
 
     # copia el about.html de los templates
-    about = TEMPLATE_PATH / 'about-me.html'
+    about = TEMPLATE_PATH / 'about.html'
     shutil.copy(about, BLOG_PATH)
 
