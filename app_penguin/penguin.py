@@ -1,6 +1,13 @@
 import argparse
+from pathlib import Path
 
-from .scripts import mk_draft, mk_site, edit, build, deploy
+from .scripts import mk_draft, mk_site, serve, edit, build, deploy
+from .scripts.get_config import get_site_path
+
+
+DEFAULT_SITE = get_site_path()
+PUBLIC = DEFAULT_SITE / 'public'
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -22,6 +29,9 @@ def main():
     # Comando build y deploy
     subparser.add_parser("build", help='Construye el sitio')
     subparser.add_parser("deploy", help='Deploya el sitio')
+
+    # Comando serve
+    subparser.add_parser('serve', help='Inicia un servidor local')
     
     args = parser.parse_args()
     
@@ -39,3 +49,5 @@ def main():
         build.build()
     elif args.command == 'deploy':
         deploy.deploy_to_github()
+    elif args.command == 'serve':
+        serve.serve(PUBLIC)
