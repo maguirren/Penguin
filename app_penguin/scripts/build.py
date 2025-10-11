@@ -25,8 +25,6 @@ STATICS_PATH = DEFAULT_SITE / "public" / "statics"
 Nota para un cambio
 la funcion build() deberia revisar los archivos en drafts/ y mover a posts los que no tengan el draft: true, y luego convertir a html desde la carpeta posts
 
-la carpeta blog deberia llamarse public
-
 Crear un comando que liste los borradores (drafts: True)
 
 Mejorar la conversion de markdown a html
